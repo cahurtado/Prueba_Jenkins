@@ -15,7 +15,6 @@ pipeline {
                 mvn clean install
                 mvn validate
                 mvn compile
-                mvn package
             }
         }
         stage('Etapa 2 - Crear key certutil') {
