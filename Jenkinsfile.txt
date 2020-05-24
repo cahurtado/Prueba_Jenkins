@@ -12,6 +12,7 @@ pipeline {
 		}
 		stage('Etapa 1 - Maven') {
             steps {
+                mvn clean install
                 mvn validate
                 mvn compile
                 mvn package
