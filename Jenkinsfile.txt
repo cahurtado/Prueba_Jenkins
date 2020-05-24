@@ -12,9 +12,9 @@ pipeline {
 		}
 		stage('Etapa 1 - Maven') {
             steps {
-                mvn clean install
-                mvn validate
-                mvn compile
+                sh "mvn clean install"
+                sh "mvn validate"
+                sh "mvn compile"
             }
         }
     }
