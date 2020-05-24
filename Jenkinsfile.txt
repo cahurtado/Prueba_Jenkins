@@ -1,0 +1,52 @@
+pipeline {
+	agent any
+    environment {
+		PROJECT_NAME='SCM_CALI - VIDEO'
+    }
+    stages {
+		stage('Etapa 0') {
+			steps {
+				echo "Proyecto ${PROJECT_NAME}"
+			}
+		}
+		stage('Etapa 1 - Validación mvn') {
+            steps {
+                mvn validate
+            }
+        }
+        stage('Etapa 2 - Compilar mvn') {
+            steps {
+                mvn compile
+            }
+        }
+        stage('Etapa 3 - Empaquetar mvn') {
+            steps {
+                mvn package
+            }
+        }
+        stage('Etapa 4 - Crear key certutil') {
+            steps {
+                for %F in (target/*.jar) do @certutil -hashfile target/"%F" SHA256 | findstr /v hash > huella_mvn.txt
+            }
+        }
+    }
+	post {
+		always {
+            echo "Finalizo: ${currentBuild.currentResult}"
+        }
+        aborted {
+            echo "BUILD ABORTED"
+        }
+        success {
+            echo "BUILD SUCCESS"
+            echo "Seria bueno mantener esta construccion"
+        }
+        unstable {
+            echo "BUILD UNSTABLE"
+        }
+        failure {
+            echo "BUILD FAILURE"
+			echo "Revisar Fallos"
+        }
+	}
+}
