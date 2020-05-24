@@ -23,7 +23,7 @@ pipeline {
                 JAR_PROJECT = "dir /b /s *.jar"
             }
             steps {
-                dir /b /s *.jar
+                bat "dir /b /s *.jar"
             }
         }
     }
