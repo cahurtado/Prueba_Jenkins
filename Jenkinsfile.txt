@@ -1,7 +1,6 @@
 pipeline {
 	agent any
     environment {
-        VARIABLE_X='Variable Ejemplo SCM Usb cali'
 		PROJECT_NAME='SCM_CALI - VIDEO'
     }
     stages {
@@ -12,9 +11,8 @@ pipeline {
 		}
 		stage('Etapa 1 - Maven') {
             steps {
+                sh "mvn -version"
                 sh "mvn clean install"
-                sh "mvn validate"
-                sh "mvn compile"
             }
         }
     }
