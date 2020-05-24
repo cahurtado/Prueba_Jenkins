@@ -1,6 +1,7 @@
 pipeline {
 	agent any
     environment {
+        VARIABLE_X='Variable Ejemplo SCM Usb cali'
 		PROJECT_NAME='SCM_CALI - VIDEO'
     }
     stages {
