@@ -10,22 +10,14 @@ pipeline {
 				echo "Proyecto ${PROJECT_NAME}"
 			}
 		}
-		stage('Etapa 1 - Validación mvn') {
+		stage('Etapa 1 - Maven') {
             steps {
                 mvn validate
-            }
-        }
-        stage('Etapa 2 - Compilar mvn') {
-            steps {
                 mvn compile
-            }
-        }
-        stage('Etapa 3 - Empaquetar mvn') {
-            steps {
                 mvn package
             }
         }
-        stage('Etapa 4 - Crear key certutil') {
+        stage('Etapa 2 - Crear key certutil') {
             steps {
                 for %F in (target/*.jar) do @certutil -hashfile target/"%F" SHA256 | findstr /v hash > huella_mvn.txt
             }
