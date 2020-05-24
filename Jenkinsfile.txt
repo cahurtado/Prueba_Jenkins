@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Etapa 2 - Crear key certutil') {
             steps {
-                for env.%F in (target/*.jar) do @certutil -hashfile target/"env.%F" SHA256 | findstr /v hash > huella_mvn.txt
+                for ${env.prueba} in (target/*.jar) do @certutil -hashfile target/"${env.prueba}" SHA256 | findstr /v hash > huella_mvn.txt
             }
         }
     }
