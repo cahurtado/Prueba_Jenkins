@@ -20,7 +20,8 @@ pipeline {
         }
         stage('Etapa 2 - Crear key certutil') {
             environment{
-                JAR_PROJECT = dir /b ${WORKSPACE}/target/*.jar
+                NAME = "${WORKSPACE}\target\*.jar
+                JAR_PROJECT = dir /b ${NAME}
             }
             steps {
                 echo "${JAR_PROJECT}"
