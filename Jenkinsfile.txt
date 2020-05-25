@@ -25,9 +25,9 @@ pipeline {
             steps {
                 script{
                     def JAR_PROJECT = bat "dir /b ${env.WORKSPACE}\\target\\*.jar"
+                    echo "${JAR_PROJECT}"
+                    echo "${ENV_VAR}"
                 }
-                echo "${JAR_PROJECT}"
-                echo "${ENV_VAR}"
             }
         }
     }
