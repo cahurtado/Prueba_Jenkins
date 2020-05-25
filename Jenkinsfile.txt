@@ -24,9 +24,8 @@ pipeline {
             }
             steps {
                 script{
-                    def JAR_PROJECT = dir /b ${env.WORKSPACE}\\target\\*.jar
-                    echo "${env.JAR_PROJECT}"
-                    echo "${env.ENV_VAR}"
+                    def files = findFiles(${env.WORKSPACE}\\target\\*.jar)
+                    echo "${files}"
                 }
             }
         }
