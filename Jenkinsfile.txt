@@ -59,15 +59,13 @@ pipeline {
             steps {
                 script{
                     def JAR = findFiles(glob: '**/target/*.jar')
-                    bat("xcopy ${JAR[0].path} F:\\Preproduction")
-                    bat("xcopy huella_mvn.txt F:\\Preproduction")
-                    echo "Se procede a eliminar .jar"
-                    bat "del / ${JAR[0].path}"
+                    echo "${WORKSPACE}${JAR[0].path}"
                 }
             }
         }
         stage('Etapa 7 - Distribution Production') {
             steps {
+                echo "${WORKSPACE}$"
                 bat("xcopy ${WORKSPACE} F:\\Production /E /H /K")
             }
         }
