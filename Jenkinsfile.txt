@@ -70,7 +70,7 @@ pipeline {
             steps {
                 script{
                     def JAR = findFiles(glob: '**/target/*.jar')
-                    bat("del /S F:\\Production\\*")
+                    bat("del /q F:\\Production\\*")
                     bat("move /Y ${WORKSPACE}\\${JAR[0].path} F:\\Production")
                     bat("xcopy huella_mvn.txt F:\\Production /Y")
                     emailext (
