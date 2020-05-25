@@ -54,14 +54,6 @@ pipeline {
                 bat "certutil -hashfile ${JAR[0].path} SHA256 | findstr /v hash > huella_mvn.txt"
             }
         }
-        stage('Etapa 6 - Distribution Preproduction') {
-            environment{
-                JAR = findFiles(glob: '**/target/*.jar')
-            }
-            steps {
-                echo "${JAR[0].path}"
-            }
-        }
     }
 	post {
 		always {
