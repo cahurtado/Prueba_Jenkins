@@ -20,10 +20,10 @@ pipeline {
         }
         stage('Etapa 2 - Crear key certutil') {
             environment{
-                JAR_PROJECT = bat "dir /b ${env.WORKSPACE}\\target\\*.jar"
                 ENV_VAR = "FUCK"
             }
             steps {
+                def JAR_PROJECT = bat "dir /b ${env.WORKSPACE}\\target\\*.jar"
                 echo "${JAR_PROJECT}"
                 echo "${ENV_VAR}"
             }
