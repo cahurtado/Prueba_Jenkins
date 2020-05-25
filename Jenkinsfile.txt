@@ -51,11 +51,7 @@ pipeline {
                 }
             }
         }
-        stage('Etapa 7 - Distribution Production') {
-            steps {
 
-            }
-        }
     }
 	post {
 		always {
