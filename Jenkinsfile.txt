@@ -48,17 +48,22 @@ pipeline {
         }
         stage('Etapa 5 - Key') {
             steps {
-                def JAR = findFiles(glob: '**/target/*.jar')
-                bat "certutil -hashfile ${JAR[0].path} SHA256 | findstr /v hash > huella_mvn.txt"
+                script{
+                    def JAR = findFiles(glob: '**/target/*.jar')
+                    bat "certutil -hashfile ${JAR[0].path} SHA256 | findstr /v hash > huella_mvn.txt"
+                }
+                
             }
         }
         stage('Etapa 6 - Distribution Preproduction') {
             steps {
-                def JAR = findFiles(glob: '**/target/*.jar')
-                bat("xcopy ${JAR[0].path} F:\\Preproduction /O /X")
-                bat("xcopy huella_mvn.txt F:\\Preproduction /O /X")
-                echo "Se procede a eliminar .jar"
-                bat "del / ${JAR[0].path}"
+                script{
+                    def JAR = findFiles(glob: '**/target/*.jar')
+                    bat("xcopy ${JAR[0].path} F:\\Preproduction /O /X")
+                    bat("xcopy huella_mvn.txt F:\\Preproduction /O /X")
+                    echo "Se procede a eliminar .jar"
+                    bat "del / ${JAR[0].path}"
+                }
             }
         }
         stage('Etapa 7 - Distribution Production') {
