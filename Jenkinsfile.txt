@@ -19,6 +19,12 @@ pipeline {
             steps {
                 script{
                     def COMPILE = bat (script:"mvn compile", returnStdout: true)
+                    emailext (
+                        subject: "Project compiled ${PROJECT_NAME}",
+                        body: "${COMPILE}",
+                        to: "camilohz9315@gmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
                 }
             }
         }
@@ -26,6 +32,12 @@ pipeline {
             steps {
                 script{
                     def TEST = bat (script:"mvn test", returnStdout: true)
+                    emailext (
+                        subject: "Test results ${PROJECT_NAME}",
+                        body: "${TEST}",
+                        to: "camilohz9315@gmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
                 }
             }
         }
@@ -48,13 +60,13 @@ pipeline {
                 script{
                     def JAR = findFiles(glob: '**/target/*.jar')
                     bat("move /Y ${WORKSPACE}\\${JAR[0].path} F:\\Preproduction")
-                    bat("xcopy huella_mvn.txt F:\\Preproduction")
+                    bat("xcopy huella_mvn.txt F:\\Preproduction" /Y)
                 }
             }
         }
         stage('Etapa 7 - Distribution Production') {
             steps {
-                bat("xcopy ${WORKSPACE} F:\\Production /E /H /K")
+                bat("xcopy ${WORKSPACE} F:\\Production /E /H /K /Y")
             }
         }
     }
