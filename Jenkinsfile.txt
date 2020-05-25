@@ -63,11 +63,6 @@ pipeline {
                 bat("xcopy huella_mvn.txt F:\\Preproduction /O /X")
             }
         }
-        stage('Etapa 7 - Distribution Production') {
-            steps {
-                bat("xcopy ${WORKSPACE} F:\\Production /O /X /E /H /K")
-            }
-        }
     }
 	post {
 		always {
