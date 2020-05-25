@@ -1,7 +1,7 @@
 pipeline {
 	agent any
     environment {
-		PROJECT_NAME='SCM_CALI - VIDEO'
+		PROJECT_NAME='KAOS - SOFTWARE PROJECT'
     }
     stages {
 		stage('Etapa 0') {
@@ -9,18 +9,18 @@ pipeline {
 				echo "Proyecto ${PROJECT_NAME}"
 			}
 		}
-        stage('Etapa 1 - Maven Validate') {
+        stage('Etapa 1 - Validation') {
             steps {
                 bat "mvn -version"
                 bat "mvn validate"
             }
         }
-		stage('Etapa 12 - Maven Compile') {
+		stage('Etapa 2 - Compile') {
             steps {
                 script{
                     def COMPILE = bat (script:"mvn compile", returnStdout: true)
                     emailext (
-                        subject: "Se compiló el proyecto",
+                        subject: "Project compiled ${PROJECT_NAME}",
                         body: "${COMPILE}",
                         to: "camilohz9315@gmail.com",
                         from: "camilohz9315@gmail.com"
@@ -28,22 +28,51 @@ pipeline {
                 }
             }
         }
-        stage('Etapa 3 - Maven Test') {
+        stage('Etapa 3 - Test') {
             steps {
-                bat "mvn test"
+                script{
+                    def TEST = bat (script:"mvn test", returnStdout: true)
+                    emailext (
+                        subject: "Test results ${PROJECT_NAME}",
+                        body: "${TEST}",
+                        to: "camilohz9315@gmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
+                }
             }
         }
-        stage('Etapa 4 - Maven Test') {
+        stage('Etapa 4 - Package') {
             steps {
                 bat "mvn package"
             }
         }
-        stage('Etapa 5 - Crear key certutil') {
+        stage('Etapa 5 - Key') {
+            environment{
+                JAR = findFiles(glob: '**/target/*.jar')
+            }
             steps {
-                script{
-                    def files = findFiles(glob: '**/target/*.jar')
-                    bat "certutil -hashfile ${files[0].path} SHA256 | findstr /v hash > huella_mvn.txt"
-                }
+                bat "certutil -hashfile ${JAR[0].path} SHA256 | findstr /v hash > huella_mvn.txt"
+            }
+        }
+        stage('Etapa 6 - Distribution Preproduction') {
+            environment{
+                JAR = findFiles(glob: '**/target/*.jar')
+            }
+            steps {
+                bat("xcopy ${JAR[0].path} F:\\Preproduction /O /X")
+                bat("xcopy huella_mvn.txt F:\\Preproduction /O /X")
+            }
+            succes {
+                echo "Se procede a eliminar .jar"
+                bat "del / ${JAR[0].path}"
+            }
+        }
+        stage('Etapa 6 - Distribution Production') {
+            steps {
+                bat("xcopy ${WORKSPACE} F:\\Production /O /X /E /H /K")
+            }
+            succes {
+                echo "Hemos terminado"
             }
         }
     }
