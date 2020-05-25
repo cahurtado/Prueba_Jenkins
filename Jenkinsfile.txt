@@ -64,7 +64,7 @@ pipeline {
                     emailext (
                         subject: "Preproduction upload ${PROJECT_NAME}",
                         body: "Check preproduction ambient, new versión uploaded",
-                        to: "camilo323@hotmail.com",
+                        to: "camilohz9315@gmail.com",
                         from: "camilohz9315@gmail.com"
                     )
                 }
@@ -74,7 +74,7 @@ pipeline {
             steps {
                 bat("xcopy ${WORKSPACE} F:\\Production /E /S /T /H /Y")
                 emailext (
-                        subject: "${PROJECT_NAME} brand new versión avaible",
+                        subject: "${PROJECT_NAME} brand new version avaible",
                         body: "We have a new version of our software for you",
                         to: "camilohz1593@gmail.com",
                         from: "camilohz9315@gmail.com"
