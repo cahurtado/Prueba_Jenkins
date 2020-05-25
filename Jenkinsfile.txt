@@ -68,6 +68,7 @@ pipeline {
                         to: "camilohz9315@gmail.com",
                         from: "camilohz9315@gmail.com"
                     )
+                    telegramSend("Nueva versión de software")
                 }
             }
         }
@@ -92,14 +93,12 @@ pipeline {
         }
         success {
             echo "BUILD SUCCESS"
-            echo "Seria bueno mantener esta construccion"
         }
         unstable {
             echo "BUILD UNSTABLE"
         }
         failure {
             echo "BUILD FAILURE"
-			echo "Revisar Fallos"
         }
 	}
 }
