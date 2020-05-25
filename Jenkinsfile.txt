@@ -22,7 +22,7 @@ pipeline {
                     emailext (
                         subject: "Se compiló el proyecto",
                         body: "${COMPILE}",
-                        to: "camilo323@hotmail.com",
+                        to: "camilohz9315@gmail.com",
                         from: "camilohz9315@gmail.com"
                     )
                 }
