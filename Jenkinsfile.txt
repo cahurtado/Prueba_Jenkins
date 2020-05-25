@@ -23,7 +23,7 @@ pipeline {
                 JAR_PROJECT = bat "dir /b ${WORKSPACE}\\target\\*.jar"
             }
             steps {
-                bat "certutil -hashfile target/${env.JAR_PROJECT} SHA256 | findstr /v hash > huella_mvn.txt"
+                echo "${JAR_PROJECT}"
             }
         }
     }
