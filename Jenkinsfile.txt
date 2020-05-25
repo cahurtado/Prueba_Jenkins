@@ -23,7 +23,9 @@ pipeline {
                 ENV_VAR = "FUCK"
             }
             steps {
-                def JAR_PROJECT = bat "dir /b ${env.WORKSPACE}\\target\\*.jar"
+                script{
+                    def JAR_PROJECT = bat "dir /b ${env.WORKSPACE}\\target\\*.jar"
+                }
                 echo "${JAR_PROJECT}"
                 echo "${ENV_VAR}"
             }
