@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 script{
-                    def files = findFiles(${env.WORKSPACE}\\target\\*.jar)
+                    def files = findFiles(glob: '${env.WORKSPACE}\\target\\*.jar')
                     echo "${files}"
                 }
             }
