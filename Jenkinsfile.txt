@@ -62,18 +62,18 @@ pipeline {
                 bat("xcopy ${JAR[0].path} F:\\Preproduction /O /X")
                 bat("xcopy huella_mvn.txt F:\\Preproduction /O /X")
             }
-            succes {
-                echo "Se procede a eliminar .jar"
-                bat "del / ${JAR[0].path}"
-            }
+        }
+        succes {
+            echo "Se procede a eliminar .jar"
+            bat "del / ${JAR[0].path}"
         }
         stage('Etapa 6 - Distribution Production') {
             steps {
                 bat("xcopy ${WORKSPACE} F:\\Production /O /X /E /H /K")
             }
-            succes {
-                echo "Hemos terminado"
-            }
+        }
+        succes {
+            echo "Hemos terminado"
         }
     }
 	post {
