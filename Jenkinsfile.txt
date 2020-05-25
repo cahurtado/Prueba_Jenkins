@@ -19,13 +19,11 @@ pipeline {
             }
         }
         stage('Etapa 2 - Crear key certutil') {
-            environment{
-                ENV_VAR = "FUCK"
-            }
             steps {
                 script{
                     def files = findFiles(glob: '**/target/*.jar')
-                    echo "${files}"
+                    bat "certutil -hashfile ${files[0].path} SHA256 | findstr /v hash > huella_mvn.txt"
+                    echo "${files[0].path}"
                 }
             }
         }
