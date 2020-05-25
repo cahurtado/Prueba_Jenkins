@@ -61,12 +61,24 @@ pipeline {
                     def JAR = findFiles(glob: '**/target/*.jar')
                     bat("move /Y ${WORKSPACE}\\${JAR[0].path} F:\\Preproduction")
                     bat("xcopy huella_mvn.txt F:\\Preproduction /Y")
+                    emailext (
+                        subject: "Preproduction upload ${PROJECT_NAME}",
+                        body: "Check preproduction ambient, new versión uploaded",
+                        to: "camilo323@hotmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
                 }
             }
         }
         stage('Etapa 7 - Distribution Production') {
             steps {
                 bat("xcopy ${WORKSPACE} F:\\Production /E /S /T /H /Y")
+                emailext (
+                        subject: "${PROJECT_NAME} brand new versión avaible",
+                        body: "We have a new version of our software for you",
+                        to: "camilohz1593@gmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
             }
         }
     }
