@@ -9,21 +9,35 @@ pipeline {
 				echo "Proyecto ${PROJECT_NAME}"
 			}
 		}
-		stage('Etapa 1 - Maven') {
+        stage('Etapa 1 - Maven Validate') {
             steps {
                 bat "mvn -version"
-                bat "mvn install"
                 bat "mvn validate"
-                bat "mvn compile"
+            }
+        }
+		stage('Etapa 12 - Maven Compile') {
+            steps {
+                script{
+                    def COMPILE = bat (script:"mvn compile", returnStdout: true)
+                    echo "${COMPILE}"
+                }
+            }
+        }
+        stage('Etapa 3 - Maven Test') {
+            steps {
+                bat "mvn test"
+            }
+        }
+        stage('Etapa 4 - Maven Test') {
+            steps {
                 bat "mvn package"
             }
         }
-        stage('Etapa 2 - Crear key certutil') {
+        stage('Etapa 5 - Crear key certutil') {
             steps {
                 script{
                     def files = findFiles(glob: '**/target/*.jar')
                     bat "certutil -hashfile ${files[0].path} SHA256 | findstr /v hash > huella_mvn.txt"
-                    echo "${files[0].path}"
                 }
             }
         }
