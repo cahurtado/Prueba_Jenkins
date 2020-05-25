@@ -59,8 +59,9 @@ pipeline {
                 JAR = findFiles(glob: '**/target/*.jar')
             }
             steps {
-                bat("xcopy ${WORKSPACE}${JAR[0].path} F:\\Preproduction /O /X")
-                bat("xcopy ${WORKSPACE}huella_mvn.txt F:\\Preproduction /O /X")
+                echo "${WORKSPACE}${JAR[0].path}"
+                echo "${WORKSPACE}huella_mvn.txt"
+                
             }
         }
     }
