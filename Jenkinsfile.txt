@@ -59,9 +59,7 @@ pipeline {
                 JAR = findFiles(glob: '**/target/*.jar')
             }
             steps {
-                echo "${WORKSPACE}${JAR[0].path}"
-                echo "${WORKSPACE}huella_mvn.txt"
-                
+                echo "${JAR[0].path}"
             }
         }
     }
