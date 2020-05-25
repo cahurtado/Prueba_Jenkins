@@ -46,12 +46,17 @@ pipeline {
         stage('Etapa 6 - Distribution Preproduction') {
             steps {
                 script{
-
-                    bat("echo '${WORKSPACE}'")
+                    def JAR = findFiles(glob: '**/target/*.jar')
+                    bat("move /Y ${WORKSPACE}\\target\\${JAR[0].path} F:\\Preproduction")
+                    bat("xcopy huella_mvn.txt F:\\Preproduction")
                 }
             }
         }
-
+        stage('Etapa 7 - Distribution Production') {
+            steps {
+                bat("xcopy ${WORKSPACE} F:\\Production /E /H /K")
+            }
+        }
     }
 	post {
 		always {
