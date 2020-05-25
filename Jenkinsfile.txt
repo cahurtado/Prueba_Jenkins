@@ -59,13 +59,13 @@ pipeline {
             steps {
                 script{
                     def JAR = findFiles(glob: '**/target/*.jar')
-                    echo "${WORKSPACE}${JAR[0].path}"
+                    bat "echo '${WORKSPACE}${JAR[0].path}'"
                 }
             }
         }
         stage('Etapa 7 - Distribution Production') {
             steps {
-                echo "${WORKSPACE}$"
+                echo "${env.WORKSPACE}$"
                 bat("xcopy ${WORKSPACE} F:\\Production /E /H /K")
             }
         }
