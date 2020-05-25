@@ -60,7 +60,7 @@ pipeline {
                 script{
                     def JAR = findFiles(glob: '**/target/*.jar')
                     bat("move /Y ${WORKSPACE}\\${JAR[0].path} F:\\Preproduction")
-                    bat("xcopy huella_mvn.txt F:\\Preproduction" /Y)
+                    bat("xcopy huella_mvn.txt F:\\Preproduction /Y")
                 }
             }
         }
