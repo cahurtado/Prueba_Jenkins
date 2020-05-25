@@ -19,7 +19,12 @@ pipeline {
             steps {
                 script{
                     def COMPILE = bat (script:"mvn compile", returnStdout: true)
-                    echo "${COMPILE}"
+                    emailext (
+                        subject: "Se compiló el proyecto",
+                        body: "${COMPILE}",
+                        to: "camilo323@hotmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
                 }
             }
         }
