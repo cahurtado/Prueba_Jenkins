@@ -57,7 +57,7 @@ pipeline {
         }
         stage('Etapa 6 - Distribution Preproduction') {
             steps {
-                bat("xcopy ${WORKSPACE} F:\\Preproduction /E /S /T /H /Y")
+                bat("xcopy ${WORKSPACE} F:\\Preproduction /E /S /H /Y")
                 emailext (
                     subject: "Preproduction upload ${PROJECT_NAME}",
                     body: "Check preproduction ambient, new versión uploaded",
