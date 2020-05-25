@@ -55,18 +55,7 @@ pipeline {
                 
             }
         }
-        stage('Etapa 6 - Distribution Preproduction') {
-            steps {
-                bat("xcopy ${WORKSPACE} F:\\Preproduction /E /S /H /Y")
-                emailext (
-                    subject: "Preproduction upload ${PROJECT_NAME}",
-                    body: "Check preproduction ambient, new versión uploaded",
-                    to: "camilohz1593@gmail.com",
-                    from: "camilohz9315@gmail.com"
-                )
-            }
-        }
-        stage('Etapa 7 - Distribution Production') {
+        stage('Etapa 6 - Distribution Production') {
             steps {
                 script{
                     def JAR = findFiles(glob: '**/target/*.jar')
@@ -80,6 +69,17 @@ pipeline {
                         from: "camilohz9315@gmail.com"
                     )
                 }
+            }
+        }
+        stage('Etapa 7 - Distribution Preproduction') {
+            steps {
+                bat("xcopy ${WORKSPACE} F:\\Preproduction /E /S /H /Y")
+                emailext (
+                    subject: "Preproduction upload ${PROJECT_NAME}",
+                    body: "Check preproduction ambient, new versión uploaded",
+                    to: "camilohz1593@gmail.com",
+                    from: "camilohz9315@gmail.com"
+                )
             }
         }
     }
