@@ -53,7 +53,7 @@ pipeline {
                     bat("move /Y ${WORKSPACE}\\${JAR[0].path} F:\\Production")
                     bat("xcopy huella_mvn.txt F:\\Production /Y")
                     
-                    telegramSend("Nueva versión de software")
+                    telegramSend(message: 'Nueva versión de software')
                 }
             }
         }
