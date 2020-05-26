@@ -19,7 +19,12 @@ pipeline {
             steps {
                 script{
                     def COMPILE = bat (script:"mvn compile", returnStdout: true)
-                    
+                    emailext (
+                        subject: "Project compiled ${PROJECT_NAME}",
+                        body: "${COMPILE}",
+                        to: "camilohz9315@gmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
                 }
             }
         }
@@ -27,7 +32,12 @@ pipeline {
             steps {
                 script{
                     def TEST = bat (script:"mvn test", returnStdout: true)
-                    
+                    emailext (
+                        subject: "Test results ${PROJECT_NAME}",
+                        body: "${TEST}",
+                        to: "camilohz9315@gmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
                 }
             }
         }
@@ -52,14 +62,24 @@ pipeline {
                     bat("del /q F:\\Production\\*")
                     bat("move /Y ${WORKSPACE}\\${JAR[0].path} F:\\Production")
                     bat("xcopy huella_mvn.txt F:\\Production /Y")
-                    telegramSend(message: 'Nueva versión de software')
+                    emailext (
+                        subject: "${PROJECT_NAME} brand new version avaible",
+                        body: "We have a new version of our software for you",
+                        to: "camilohz9315@gmail.com",
+                        from: "camilohz9315@gmail.com"
+                    )
                 }
             }
         }
         stage('Etapa 7 - Distribution Preproduction') {
             steps {
                 bat("xcopy ${WORKSPACE} F:\\Preproduction /E /S /H /Y")
-                
+                emailext (
+                    subject: "Preproduction upload ${PROJECT_NAME}",
+                    body: "Check preproduction ambient, new versión uploaded",
+                    to: "camilohz1593@gmail.com",
+                    from: "camilohz9315@gmail.com"
+                )
             }
         }
     }
