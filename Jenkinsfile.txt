@@ -52,7 +52,6 @@ pipeline {
                     bat("del /q F:\\Production\\*")
                     bat("move /Y ${WORKSPACE}\\${JAR[0].path} F:\\Production")
                     bat("xcopy huella_mvn.txt F:\\Production /Y")
-                    TelegramBot(message: 'Prueba')
                     telegramSend(message: 'Nueva versión de software')
                 }
             }
